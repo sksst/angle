@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'antd';
 import './UploadsBox.less';
+import {Chart, Axis, Geom, Tooltip} from 'bizcharts';
 
 function UploadsBox({type, num}) {
 	let bgColor = '#51c6ea';
@@ -19,6 +20,19 @@ function UploadsBox({type, num}) {
 		icon = <Icon type="global" style={{fontSize: '18px'}}/>
 	}
 
+    const data = [
+        { year: '1', sales: Math.random()*50 },
+        { year: '2', sales: Math.random()*50 },
+        { year: '3', sales: Math.random()*50 },
+        { year: '4', sales: Math.random()*50 },
+        { year: '5', sales: Math.random()*50 },
+        { year: '6', sales: Math.random()*50 },
+        { year: '7', sales: Math.random()*50 }
+    ];
+    const cols = {
+        'sales': {tickInterval: 20},
+    };
+
 	return (
 		<div className="uploads-box" style={{backgroundColor: bgColor}}>
 			<div className="top">
@@ -26,6 +40,11 @@ function UploadsBox({type, num}) {
 				<div>{icon}</div>
 			</div>
 			<div className="type">{type}</div>
+			<div className="charts-wrapper">
+                <Chart height={100} data={data} scale={cols} forceFit padding={0}>
+                    <Geom type="interval" position="year*sales" />
+                </Chart>
+			</div>
 		</div>
 	)
 }
